@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
+    <script src="script.js"></script>
+<style>
+ul li{
+list-style: none;
+display: inline-block;
+}
+
+</style>
+
+
+
+</title>
+
+</head>
+
+<body>
+    <div style="text-align: center;">
+        <h1>Ծրագրավորում III Երևան</h1>
+        <h2>Ամրամ Սարգսյան</h2>
+
+    </div>
+
+
+    <table style="padding: 50px;" class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Գույն</th>
+                <th scope="col">Նկարագրություն</th>
+                <th scope="col">Ծնվել է</th>
+            </tr>
+        </thead>
+        <tbody >
+            <tr>
+                <th scope="row">1</th>
+                <td scope="row" style="background-color:green;"></td>
+                <td>Կանաչը խոտն է, որը բազմանում է N ցիկլը մեկ,մահանում է երբ նրան ուտում է խոտակերը, Նրա վրա ազդում է 4 եղանակ</td>
+                <td id="grassCount"></td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td scope="row" style="background-color:rgb(241, 241, 0);"></td>
+                <td>Դեղինը խոտակերն է, որը բազմանում է N հատ խոտ ուտելուց հետո և մահանում է N հատ չուտելուց հետո, կամ
+                    երբ նրան ուտում է գիշատիչը,:</td>
+                <td id="grasseaterCount"></td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td scope="row" style="background-color:black ;"></td>
+                <td>Սևը բոմբն է, որի վրա կանգնելով կերպարը մահանում է:</td>
+                <td id="gishatichCount"></td>
+            </tr>
+            <tr>
+              
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td scope="row" style="background-color:red;"></td>
+                <td>Կարմիրը գիշատիչն է, որը բազմանում է N հատ խոտակեր ուտելուց հետո և մահանում է N հատ չուտելուց հետո, կամ
+                    երբ նա կանգնում է բոմբի վռա և մահանում է:</td>
+                <td id="anicvacdagaxCount"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div  style="justify-content: center;" class="tools">
+        
+        <ul>
+            <li>
+                <button style="background-color: #222;
+                border-radius: 4px;
+                border-style: none;
+                box-sizing: border-box;
+                color: #fff;
+                cursor: pointer;
+                display: inline-block;
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 1.5;
+                margin: 0;
+                max-width: none;
+                min-height: 44px;
+                min-width: 10px;
+                outline: none;
+                overflow: hidden;
+                padding: 9px 20px 8px;
+                position: relative;
+                text-align: center;
+                text-transform: none;
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                width: 100%;;" onclick="kill()">Kill them all</button>
+            </li>
+            <li>
+                <button style="background-color: green;
+                border-radius: 4px;
+                border-style: none;
+                box-sizing: border-box;
+                color: #fff;
+                cursor: pointer;
+                display: inline-block;
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 1.5;
+                margin: 0;
+                max-width: none;
+                min-height: 44px;
+                min-width: 10px;
+                outline: none;
+                overflow: hidden;
+                padding: 9px 20px 8px;
+                position: relative;
+                text-align: center;
+                text-transform: none;
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                width: 100%;;" onclick="addGrass()">Add grass</button>
+            </li>
+            <li>
+                <button style="background-color: yellow;
+                border-radius: 4px;
+                border-style: none;
+                box-sizing: border-box;
+                color: #fff;
+                cursor: pointer;
+                display: inline-block;
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 1.5;
+                margin: 0;
+                max-width: none;
+                min-height: 44px;
+                min-width: 10px;
+                outline: none;
+                overflow: hidden;
+                padding: 9px 20px 8px;
+                position: relative;
+                text-align: center;
+                text-transform: none;
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                width: 100%;;" onclick="addGrassEater()">Add GrassEater</button>
+            </li>
+            <li>
+                <button style="background-color: red;
+                border-radius: 4px;
+                border-style: none;
+                box-sizing: border-box;
+                color: #fff;
+                cursor: pointer;
+                display: inline-block;
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 1.5;
+                margin: 0;
+                max-width: none;
+                min-height: 44px;
+                min-width: 10px;
+                outline: none;
+                overflow: hidden;
+                padding: 9px 20px 8px;
+                position: relative;
+                text-align: center;
+                text-transform: none;
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                width: 100%;;" onclick="addGishatich()">Add Predator</button>
+            </li>
+            <li>
+                <button style="background-color: black;
+                border-radius: 4px;
+                border-style: none;
+                box-sizing: border-box;
+                color: #fff;
+                cursor: pointer;
+                display: inline-block;
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 1.5;
+                margin: 0;
+                max-width: none;
+                min-height: 44px;
+                min-width: 10px;
+                outline: none;
+                overflow: hidden;
+                padding: 9px 20px 8px;
+                position: relative;
+                text-align: center;
+                text-transform: none;
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                width: 100%;;" onclick="addAnicvacDagax()"> Add Bomb</button>
+            </li>
+   
+        </ul>
+        <p> PS: MAC-ով չեմ բացել չգիտեմ կաշխատի թե չէ))։
+        Շնորհակալություն դասընթացի համար <3
+        </p>
+    </div>
+</body>
+
+
